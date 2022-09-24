@@ -22,7 +22,7 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    private String cleanXSS(String value) {
+    public static String cleanXSS(String value) {
         value = value.replaceAll("<", "& lt;").replaceAll(">", "& gt;");
         value = value.replaceAll("\\(", "& #40;").replaceAll("\\)", "& #41;");
         value = value.replaceAll("'", "& #39;");

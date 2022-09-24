@@ -11,21 +11,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+import static com.devkurly.board.controller.BoardController.cleanXSS;
+
 @RestController
 public class CommentController {
     private final BoardService boardService;
 
     public CommentController(BoardService boardService) {
         this.boardService = boardService;
-    }
-    private String cleanXSS(String value) {
-        value = value.replaceAll("<", "& lt;").replaceAll(">", "& gt;");
-        value = value.replaceAll("\\(", "& #40;").replaceAll("\\)", "& #41;");
-        value = value.replaceAll("'", "& #39;");
-        value = value.replaceAll("eval\\((.*)\\)", "");
-        value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']", "\"\"");
-        value = value.replaceAll("script", "");
-        return value;
     }
 
     @PostMapping("/board/comment/{bbs_id}")

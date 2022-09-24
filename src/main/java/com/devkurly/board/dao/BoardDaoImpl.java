@@ -20,6 +20,12 @@ public class BoardDaoImpl implements BoardDao {
 
     private String namespace = "com.devkurly.board.dao.boardMapper.";
 
+
+    private void lengthException(String boardDto, int num, String message) throws Exception {
+        int cnLength = boardDto.length();
+        if(cnLength> num ||cnLength==0)
+            throw new Exception(message);
+    }
     @Override
     public int deleteAll() throws Exception {
         return session.delete(namespace + "deleteAll");
@@ -91,17 +97,13 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public int insert(BoardDto boardDto) throws Exception {
-        int cnLength = boardDto.getBbs_title().length();
-        if(cnLength>60||cnLength==0)
-            throw new Exception("제목에 적절하지 않은 글자수입니다.");
+        lengthException(boardDto.getBbs_title(), 60, "제목에 적절하지 않은 글자수입니다.");
         return session.insert(namespace + "insert", boardDto);
     }
 
     @Override
     public int insertCn(BoardDto boardDto) throws Exception {
-        int cnLength = boardDto.getBbs_cn().length();
-        if(cnLength>2000||cnLength==0)
-            throw new Exception("내용에 적절하지 않은 글자수입니다.");
+        lengthException(boardDto.getBbs_cn(), 2000, "내용에 적절하지 않은 글자수입니다.");
         return session.insert(namespace + "insertCn", boardDto);
     }
 
@@ -123,17 +125,13 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public int update(BoardDto boardDto) throws Exception {
-        int cnLength = boardDto.getBbs_title().length();
-        if(cnLength>60||cnLength==0)
-            throw new Exception("제목에 적절하지 않은 글자수입니다.");
+        lengthException(boardDto.getBbs_title(), 60, "제목에 적절하지 않은 글자수입니다.");
         return session.update(namespace + "update", boardDto);
     }
 
     @Override
     public int updateCn(BoardDto boardDto) throws Exception {
-        int cnLength = boardDto.getBbs_cn().length();
-        if(cnLength>2000||cnLength==0)
-            throw new Exception("내용에 적절하지 않은 글자수입니다.");
+        lengthException(boardDto.getBbs_cn(), 2000, "내용에 적절하지 않은 글자수입니다.");
         return session.update(namespace + "updateCn", boardDto);
     }
     @Override
