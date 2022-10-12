@@ -308,7 +308,7 @@
     </update>
 
 
-    <select id="selectProductId" resultType="Product">
+    <select id="selectProductId" resultType="map">
         select pdt_id
         from PRODUCT_TB
     </select>
